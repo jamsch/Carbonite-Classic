@@ -2745,7 +2745,7 @@ function Nx.Map:Menu_OnScaleRestore()
 	if s then
 		Nx.Map:GetMap(1).Scale = s
 		Nx.Map:GetMap(1).RealScale = s
-		Nx.Map:GetMap(1).StepTime = 10
+		Nx.Map:GetMap(1).StepTime = 5
 	else
 --		Nx.prt ("Scale not set")
 	end
@@ -3673,7 +3673,7 @@ function Nx.Map:OnMouseDown (button)
 				map.ScrollingFrm = map.ClickFrm				
 			end
 		end
-
+	
 	elseif button == "MiddleButton" then
 
 		if IsControlKeyDown() then
@@ -3805,7 +3805,7 @@ function Nx.Map:MouseWheel (value)
 	local oy = map.MapPosY + (top - y - map.TitleH - map.MapH / 2) / map.Scale
 
 	map.Scale = map:ScrollScale (value)
-	map.StepTime = 10
+	map.StepTime = 1
 	map.MapScale = map.Scale / 10.02
 	local nx = map.MapPosX + (x - left - map.PadX - map.MapW / 2) / map.Scale
 	local ny = map.MapPosY + (top - y - map.TitleH - map.MapH / 2) / map.Scale
@@ -3831,7 +3831,7 @@ function Nx.Map:SetScaleOverTime (steps)
 		self.Scale = self:ScrollScale (step)
 	end
 
-	self.StepTime = 10
+	self.StepTime = 5
 end
 
 --------
@@ -9631,7 +9631,7 @@ function Nx.Map:CenterMap1To1 (mapId)
 
 	self.Scale = 1002 / 100 / self:GetWorldZoneScale (mapId) * GetScreenWidth() / 1680 * 2
 	self.ScaleDraw = self.Scale
-	self.StepTime = 10
+	self.StepTime = 5
 end
 
 --------
