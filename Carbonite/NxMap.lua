@@ -8051,8 +8051,8 @@ function Nx.Map:UpdateIcons (drawNonGuide)
 			elseif v.DrawMode == "WP" then		-- World point
 
 				local scale = self.IconScale * v.Scale * wpScale
-				local w = max (v.W * scale, wpMin)
-				local h = max (v.H * scale, wpMin)
+				local w = min(v.W * scale, 24)
+				local h = min(v.H * scale, 24)
 
 				local curMapId = Nx.Map:GetCurrentMapAreaID()
 				if self.Win:IsSizeMax() then
