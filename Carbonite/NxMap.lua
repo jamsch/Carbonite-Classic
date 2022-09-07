@@ -3836,15 +3836,7 @@ end
 
 --------
 -- Update event handler
-local ttl = 0
 function Nx.Map.OnUpdate (this, elapsed)	--V4 this
-
-	ttl = ttl + elapsed
-	if ttl < .05 then
-		return
-	end
-	ttl = 0
-	
 	-- Temp HACK - Hide unused HANDYNOTES icons
 	--[[if not WorldMapFrame:IsShown() then
 		for n = 1, 2000 do 
@@ -4086,7 +4078,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	end
 
 	-- Profiling
-
+	--[[
 	if map.DebugTime then
 
 		profileTime = GetTime() - profileTime
@@ -4111,7 +4103,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 		ResetCPUUsage()
 	end
-
+	]]--
 	--
 
 	if Nx.Tick % 3 == 0 then	-- Do less often, since tip makes garbage
