@@ -1985,7 +1985,7 @@ function Nx.Social:UpdateIcons (map)
 		local inBG = Nx.InBG
 
 		if inBG then
-			if not Nx.scdb.profile.Social.PunkShowInBG or Nx.Free then
+			if not Nx.scdb.profile.Social.PunkShowInBG then
 				return
 			end
 

@@ -138,19 +138,10 @@ function Nx.HUD:Show (show)
 end
 
 function Nx.HUD:UpdateOptions()
-
 	local win = self.Win
+	local lock = win:IsLocked()
 
---PAIDS!
-	if not Nx.Free then
-
-		local lock = win:IsLocked()
-
-		win:SetBGAlpha (0, lock and 0 or 1)
-
---		self.Frm:EnableMouse (not lock)
-	end
---PAIDE!
+	win:SetBGAlpha (0, lock and 0 or 1)
 
 	local gopts = self.GOpts
 
@@ -169,14 +160,12 @@ function Nx.HUD:UpdateOptions()
 	else
 		win:Lock(false,true)
 	end
---PAIDS!
 	if not InCombatLockdown() then
 		local f = self.But
 		f:SetWidth (wh)
 		f:SetHeight (wh)
 		f:Hide()
 	end
---PAIDE!
 
 	self.ButR, self.ButG, self.ButB, self.ButA = Nx.Util_str2rgba (Nx.db.profile.Track.TButColor)
 	self.ButCR, self.ButCG, self.ButCB, self.ButCA = Nx.Util_str2rgba (Nx.db.profile.Track.TButCombatColor)

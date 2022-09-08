@@ -58,7 +58,7 @@ function Nx.Com:Init()
 	self.Data.Rcv = {}
 	self.Data.Send = {}
 	self.Name = "Crb"
-	self.ChanALetter = Nx.Free and "Y" or Nx.Ads and "M" or "B"		-- Global letter. Z is used by zone channel
+	self.ChanALetter = "B"		-- Global letter. Z is used by zone channel
 
 	self.SendRate = 1
 
@@ -851,20 +851,15 @@ function Nx.Com:JoinChan (chanId)
 end
 
 function Nx.Com:OnJoinChanATimer()
-
 	self.List:AddInfo ("", "OnJoinChanATimer")
 
 	if self:GetChanCount() >= 10 then
 		return 10
 	end
 
---	if self.TryA > 0 then
---		Nx.prt ("Trying A%d", self.TryA + 1)
---	end
-
 	self.TryA = self.TryA + 1
 
-	JoinChannelByName (self.Name .. self.ChanALetter .. self.TryA)
+	JoinChannelByName(self.Name .. self.ChanALetter .. self.TryA)
 
 	return 3
 end

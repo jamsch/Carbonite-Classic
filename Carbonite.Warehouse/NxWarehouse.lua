@@ -2110,13 +2110,6 @@ function Nx.Warehouse:UpdateItems()
 		end
 
 		list:ColumnSetName (3, L["All Items"])
---[[
-		if Nx.Free then
-			list:ItemAdd (0)
-			list:ItemSet (3, "See All Is " .. Nx.FreeMsg)
-			return
-		end
---]]
 	end
 
 	for cn = cn1, cn2 do

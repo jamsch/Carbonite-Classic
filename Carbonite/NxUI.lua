@@ -4101,12 +4101,8 @@ function Nx.EditBox:Create (parentFrm, user, func, maxLetters)
 
 	box.FilterDesc = L["Search: [click]"]
 	box.FilterDescEsc = L["Search: %[click%]"]
-
---	if Nx.Free then
---		box.FilterDesc = "Search: " .. Nx.FreeMsg
---	end
-
 	box.FilterStr = ""
+
 	f:SetText (box.FilterDesc)
 	f:SetMaxLetters (maxLetters)
 

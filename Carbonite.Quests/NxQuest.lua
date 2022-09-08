@@ -5589,11 +5589,6 @@ function Nx.Quest.List:Open()
 
 	self.FilterDesc = L["Search: [click]"]
 	self.FilterDescEsc = L["Search: %[click%]"]
-
---	if Nx.Free then
---		self.FilterDesc = L["Search: "] .. Nx.FreeMsg
---	end
-
 	self.Filters = { "", "", "", ""}
 
 	f:SetText (self.FilterDesc)
@@ -10782,7 +10777,6 @@ function Nx.Quest:CalcDistances (n1, n2)
 			cur.Distance = 0
 		end
 
---		if quest and (qWatched or Nx.Free) then
 		if quest then
 
 			local cnt = (cur.CompleteMerge or cur.LBCnt == 0) and 0 or 99
