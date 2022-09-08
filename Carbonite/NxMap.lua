@@ -841,59 +841,55 @@ function Nx.Map:Create (index)
 	item:SetChecked (m.KillShow)
 
 	-- Create minimap sub menu
+	local mmmenu = Nx.Menu:Create (f)
 
-	if not Nx.Free then
+	menu:AddSubMenu (mmmenu, L["Minimap..."])
 
-		local mmmenu = Nx.Menu:Create (f)
-
-		menu:AddSubMenu (mmmenu, L["Minimap..."])
-
-		local function func (self, item)
-			self.LOpts.NXMMFull = item:GetChecked()
-			self.MMZoomChanged = true
-		end
-
-		local item = mmmenu:AddItem (0, L["Full Size"], func, m)
-		self.MMMenuIFull = item
-		item:SetChecked (opts.NXMMFull)
-
-		local function func (self, item)
-			self.LOpts.NXMMAlpha = item:GetSlider()
-		end
-
-		local item = mmmenu:AddItem (0, L["Transparency"], func, m)
-		item:SetSlider (opts.NXMMAlpha, 0, 1)
-
-		local function func (self, item)
-			self.LOpts.NXMMDockScale = item:GetSlider()
-			self.MMZoomChanged = true
-		end
-
-		local item = mmmenu:AddItem (0, L["Docked Scale"], func, m)
-		item:SetSlider (opts.NXMMDockScale, .01, 3)
-
-		local function func (self, item)
-			self.LOpts.NXMMDockScaleBG = item:GetSlider()
-			self.MMZoomChanged = true
-		end
-
-		local item = mmmenu:AddItem (0, L["Docked Scale In BG"], func, m)
-		item:SetSlider (opts.NXMMDockScaleBG, .01, 3)
-
-		local function func (self, item)
-			self.LOpts.NXMMDockAlpha = item:GetSlider()
-		end
-
-		local item = mmmenu:AddItem (0, L["Docked Transparency"], func, m)
-		item:SetSlider (opts.NXMMDockAlpha, 0, 1)
-
-		local function func (self, item)
-			self.LOpts.NXMMDockOnAtScale = item:GetSlider()
-		end
-
-		local item = mmmenu:AddItem (0, L["Docking Below Map Scale"], func, m)
-		item:SetSlider (opts.NXMMDockOnAtScale, 0, 5)
+	local function func (self, item)
+		self.LOpts.NXMMFull = item:GetChecked()
+		self.MMZoomChanged = true
 	end
+
+	local item = mmmenu:AddItem (0, L["Full Size"], func, m)
+	self.MMMenuIFull = item
+	item:SetChecked (opts.NXMMFull)
+
+	local function func (self, item)
+		self.LOpts.NXMMAlpha = item:GetSlider()
+	end
+
+	local item = mmmenu:AddItem (0, L["Transparency"], func, m)
+	item:SetSlider (opts.NXMMAlpha, 0, 1)
+
+	local function func (self, item)
+		self.LOpts.NXMMDockScale = item:GetSlider()
+		self.MMZoomChanged = true
+	end
+
+	local item = mmmenu:AddItem (0, L["Docked Scale"], func, m)
+	item:SetSlider (opts.NXMMDockScale, .01, 3)
+
+	local function func (self, item)
+		self.LOpts.NXMMDockScaleBG = item:GetSlider()
+		self.MMZoomChanged = true
+	end
+
+	local item = mmmenu:AddItem (0, L["Docked Scale In BG"], func, m)
+	item:SetSlider (opts.NXMMDockScaleBG, .01, 3)
+
+	local function func (self, item)
+		self.LOpts.NXMMDockAlpha = item:GetSlider()
+	end
+
+	local item = mmmenu:AddItem (0, L["Docked Transparency"], func, m)
+	item:SetSlider (opts.NXMMDockAlpha, 0, 1)
+
+	local function func (self, item)
+		self.LOpts.NXMMDockOnAtScale = item:GetSlider()
+	end
+
+	local item = mmmenu:AddItem (0, L["Docking Below Map Scale"], func, m)
+	item:SetSlider (opts.NXMMDockOnAtScale, 0, 5)
 
 	-- Create scale sub menu
 
@@ -1241,10 +1237,6 @@ function Nx.Map:CreateToolBar()
 		}
 	end
 	for i, b in ipairs (Nx.BarData) do
-
-		if Nx.Free and i > 3 then
-			break
-		end
 		bar:AddButton (b[1], b[2], nil, b[3], b[4])
 	end
 
@@ -2097,18 +2089,7 @@ function Nx.Map:MinimapButtonShowUpdate (justNameplate)
 	}
 
 	for n = 1, #t, 2 do
-
-		local skip
-
-		if Nx.Free then
-			if t[n] == "MinimapCluster" then
-				skip = true
-			end
-		end
-		if InCombatLockdown() then
-			skip = true
-		end
-		if not skip then
+		if not InCombatLockdown() then
 
 			local f = _G[t[n]]
 			if f then
@@ -3463,11 +3444,6 @@ end
 -- global func
 
 function Nx:NXMapKeyTogMiniFull()
-
-	if Nx.Free then
-		return
-	end
-
 	local map = Nx.Map:GetMap (1)
 	map.LOpts.NXMMFull = not map.LOpts.NXMMFull
 	map.MMZoomChanged = true
@@ -10429,13 +10405,6 @@ end
 --
 
 function Nx.Map.Dock:Create()
-
---PAIDS!
-
-	if Nx.Free then
-		return
-	end
-
 	self.UpdateMod = 100		-- Prevent error
 
 	if not Nx.db.profile.MiniMap.ButOwn then
@@ -10462,8 +10431,6 @@ function Nx.Map.Dock:Create()
 	self.InitPending = true
 
 	DockMinimapScan = Nx:ScheduleTimer(self.MinimapOwnInit,3,self)
-
---PAIDE!
 end
 
 --------
