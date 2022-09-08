@@ -31,7 +31,6 @@ L["Warrior Trainer"] = true
 L["Monk Trainer"] = true
 L["Trainer"] = true
 L["Alchemy"] = true
-L["Archaeology"] = true
 L["Blacksmithing"] = true
 L["Cooking"] = true
 L["Enchanting"] = true

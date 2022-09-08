@@ -807,10 +807,6 @@ function Nx.Map:Create (index)
 	item:SetChecked (Nx.db.char.Map, "ShowCustom")
 	local item = showMenu:AddItem(0, L["Show Instance Raid Bosses"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowRaidBoss")
---	local item = showMenu:AddItem(0, L["Show World Quests"], func, m)
---	item:SetChecked (Nx.db.char.Map, "ShowWorldQuest")
---	local item = showMenu:AddItem(0, L["Show Archaeology Blobs"], func, m)	
---	item:SetChecked (Nx.db.char.Map, "ShowArchBlobs")	
 	local item = showMenu:AddItem(0, L["Show Quest Blobs"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowQuestBlobs")
 
@@ -982,9 +978,6 @@ function Nx.Map:Create (index)
 
 	local item = tmenu:AddItem (0, L["Unexplored Transparency"], func, m)
 	item:SetSlider (opts.NXUnexploredAlpha, 0, .9)
-
-	local item = tmenu:AddItem(0, L["Archaeology Blob Transparency"],self.Menu_OnArchAlpha, m)
-	item:SetSlider (m.ArchAlpha,0,1)
 
 	local item = tmenu:AddItem(0, L["Quest Blob Transparency"],self.Menu_OnQuestAlpha, m)
 	item:SetSlider (m.QuestAlpha,0,1)
@@ -1540,21 +1533,6 @@ function Nx.Map:UpdateWorldMap()
 			v:SetScale (.001)
 		end
 	end
-	--[[if not InCombatLockdown() then
-		self.Arch:DrawNone();
-		if Nx.db.char.Map.ShowArchBlobs then
-			for i = 1, ArchaeologyMapUpdateAll(Nx.Map:GetCurrentMapAreaID()) do
-				self.Arch:DrawBlob(ArcheologyGetVisibleBlobID(i), true)
-			end
-			self:ClipZoneFrm( self.Cont, self.Zone, self.Arch, 1 )
-			self.Arch:SetFrameLevel(self.Level)
-			self.Arch:SetFillAlpha(255 * self.ArchAlpha)
-			self.Arch:SetBorderAlpha( 255 * self.ArchAlpha )
-			self.Arch:Show()
-		else
-			self.Arch:Hide()
-		end
-	end]]--
 end
 
 --------
@@ -3340,42 +3318,18 @@ function Nx.Map:ToggleSize (szmode)
 	if not win:IsShown() and not win:IsSizeMax() then
 		win:Show()
 		if szmode == 0 then
-			--MapBarFrame:SetParent("WorldMapFrame")
-			--WorldMapPlayerLower:SetAlpha(1)
-			--WorldMapPlayerUpper:SetAlpha(1)
 			map:RestoreSize()
 			Nx.Map:RestoreBlizzBountyMap()		
 		elseif szmode == 1 then
-			--MapBarFrame:SetParent(win.Frm)
-			--MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
-			--WorldMapPlayerLower:SetAlpha(0)
-			--WorldMapPlayerUpper:SetAlpha(0)
 			map:MaxSize()
 		elseif Nx.db.profile.Map.MaxCenter then
-			--MapBarFrame:SetParent(win.Frm)
-			--MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
-			--WorldMapPlayerLower:SetAlpha(0)
-			--WorldMapPlayerUpper:SetAlpha(0)
 			map:MaxSize()
-		end
-		if Nx.db.char.Map.ShowWorldQuest then
-			--Nx.Map:HijackBlizzBountyMap()
 		end
 	elseif szmode then
 		win:Show (false)
 	elseif not win:IsSizeMax() then
-		--MapBarFrame:SetParent(win.Frm)
-		--MapBarFrame:SetFrameLevel(win.Frm:GetFrameLevel() + 10)
-		--WorldMapPlayerLower:SetAlpha(0)
-		--WorldMapPlayerUpper:SetAlpha(0)
 		map:MaxSize()
-		if Nx.db.char.Map.ShowWorldQuest then
-			--Nx.Map:HijackBlizzBountyMap()
-		end
 	else
-		--MapBarFrame:SetParent("WorldMapFrame")
-		--WorldMapPlayerLower:SetAlpha(1)
-		--WorldMapPlayerUpper:SetAlpha(1)
 		map:RestoreSize()
 	end
 
@@ -4795,11 +4749,11 @@ function Nx.Map:Update (elapsed)
 			-- local type, name, desc, txIndex, pX, pY, mapLinkID, inBattleMap, graveyardID, areaID, poiID, isObjectIcon, atlasIcon = C_WorldMap.GetMapLandmarkInfo(i);
 			-- Nx.prtCtrl ("LandMs %s, %s, %s, %s, %s, %s, %s, %s", i, poiID, txIndex or '-', name, type, isObjectIcon, atlasIcon, WorldMap_IsSpecialPOI(poiID))
 			if (atlasIcon or (pX and txIndex ~= 0)) and not skip then		-- WotLK has 0 index POIs for named locations
-				if (type ~= 4 or (type == 4 and Nx.db.char.Map.ShowArchBlobs)) and (faction == nil or faction == 0 or Nx.PlFactionNum == faction) then
+				if (type ~= 4 and (faction == nil or faction == 0 or Nx.PlFactionNum == faction)) then
 					local tip = name
 					if desc then
 						tip = format ("%s\n%s", name, desc)
-					end			
+					end
 					pX = pX * 100
 					pY = pY * 100
 					

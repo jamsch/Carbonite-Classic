@@ -41,7 +41,6 @@ Nx.QuestCategory={
  "Pilgrim's Bounty",
  "Love is in the Air",
  "Cataclysm",
- "Archaeology",
  "Northern Stranglethorn",
  "Firelands Invasion",
  "Uncategorized",

@@ -161,12 +161,6 @@ Nx.GuideInfo = {
 			T = "^P",
 			Tx = "Trade_Alchemy",
 		},
-		--[[{
-			Pre = L["Archaeology"],
-			Name = L["Trainer"],
-			T = "^P",
-			Tx = "trade_archaeology",
-		},]]--
 		{
 			Pre = L["Blacksmithing"],
 			Name = L["Trainer"],
