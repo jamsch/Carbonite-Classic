@@ -83,7 +83,6 @@ Nx.List = {}
 Nx.DropDown = {}
 Nx.Button = {}
 Nx.EditBox = {}
-Nx.Graph = {}
 Nx.Slider = {}
 Nx.TabBar = {}
 Nx.ToolBar = {}
