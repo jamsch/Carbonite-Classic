@@ -3102,7 +3102,6 @@ end
 		if frame == _G["WorldMapFrame"] then
 			if Nx.Map.BlizzToggling or IsAltKeyDown() or not Nx.db.profile.Map.MaxOverride then
 				if WorldMapFrame:IsShown() then
-					Nx.Map:RestoreBlizzBountyMap()	
 					local map = Nx.Map:GetMap (1)
 					map:DetachWorldMap()
 				end
@@ -3139,7 +3138,6 @@ WorldMapFrame:HookScript("OnShow", function()
 				_G["Minimap"]:Hide()
 			end]]--
 			if WorldMapFrame:IsShown() then
-				Nx.Map:RestoreBlizzBountyMap()	
 				local map = Nx.Map:GetMap (1)
 				map:DetachWorldMap()
 			end
@@ -3218,15 +3216,6 @@ function Nx.Map:HijackBlizzBountyMap()
 	bountyBoard:Show()
 end
 
-function Nx.Map:RestoreBlizzBountyMap(tooltip)
-	--[[if tooltip ~= false then WorldMap_RestoreTooltip() end
-	if NXBountyBoard then 
-		NXBountyBoard:UnregisterEvent('QUEST_LOG_UPDATE')
-		NXBountyBoard:Clear()
-		NXBountyBoard:Hide()
-	end]]--
-end
-
 -------
 -- Changing orginal Blizz functions to fix world map toggle
 
@@ -3254,8 +3243,6 @@ function Nx.Map:BlizzToggleWorldMap()
 			WorldMapFrame:Hide()
 		end
 	else
-		Nx.Map:RestoreBlizzBountyMap()
-
 		local map = self:GetMap (1)
 		map:DetachWorldMap()
 		if not InCombatLockdown() then
@@ -3312,8 +3299,6 @@ function Nx.Map:ToggleSize (szmode)
 	if not self.Maps then	-- Healbot called ToggleFrame on load that caused us to fail in GetMap
 		return
 	end
-	
-	Nx.Map:RestoreBlizzBountyMap(false)
 
 	local map = self:GetMap (1)
 	local win = map.Win
@@ -3321,8 +3306,7 @@ function Nx.Map:ToggleSize (szmode)
 	if not win:IsShown() and not win:IsSizeMax() then
 		win:Show()
 		if szmode == 0 then
-			map:RestoreSize()
-			Nx.Map:RestoreBlizzBountyMap()		
+			map:RestoreSize()	
 		elseif szmode == 1 then
 			map:MaxSize()
 		elseif Nx.db.profile.Map.MaxCenter then
@@ -3350,8 +3334,6 @@ function Nx.Map:RestoreSize()
 	self:MouseEnable (false)
 
 	if self.Win:IsSizeMax() then
-		Nx.Map:RestoreBlizzBountyMap(false)	
---		Nx.prt ("Map RestoreSize ToggleSize")
 		self.Win:ToggleSize()
 
 		self:RestoreView ("")
