@@ -1,33 +1,33 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
 Nx.BuggedSubZones = {
-	[0] = "null",
-	[1] = "Caverns of Time",
-	[2] = "Cleft of Shadow",
-	[3] = "Temple of Earth",
-	[4] = "Terrace of Light"
+    [0] = "null",
+    [1] = "Caverns of Time",
+    [2] = "Cleft of Shadow",
+    [3] = "Temple of Earth",
+    [4] = "Terrace of Light"
 }
 
 Nx.BuggedAreas = {
-	[0] = "null",
-	[1] = 125,
-	[2] = 126,
-	[3] = 103,
-	[4] = 87,
-	[5] = 90,
+    [0] = "null",
+    [1] = 125,
+    [2] = 126,
+    [3] = 103,
+    [4] = 87,
+    [5] = 90,
 }
 
 
-	-- Can anyone expand/corect this (from dratr https://github.com/dratr/Carbonite/commits/map-zonesdocs)
-	-- Fields: name, minLvl, maxLvl, faction, cont, entryId, ex, ey, ??
-	-- entryId, ex, ey only for instances.
-	-- entryId is map id of zone that has dungeon entrance; ex, ey is loc in zone
-	-- Faction:
-	-- 0 Alliance
-	-- 1 Horde
-	-- 2 Contested
-	-- 3 Instance
-	-- 4 Unknown
+-- Can anyone expand/corect this (from dratr https://github.com/dratr/Carbonite/commits/map-zonesdocs)
+-- Fields: name, minLvl, maxLvl, faction, cont, entryId, ex, ey, ??
+-- entryId, ex, ey only for instances.
+-- entryId is map id of zone that has dungeon entrance; ex, ey is loc in zone
+-- Faction:
+-- 0 Alliance
+-- 1 Horde
+-- 2 Contested
+-- 3 Instance
+-- 4 Unknown
 Nx.Zones = {
     [0] = L["Unknown Zone"] .. "|0|0|4|0||",
     [1411] = L["Durotar"] .. "|1|10|1|1||",
@@ -74,7 +74,7 @@ Nx.Zones = {
     [1452] = L["Winterspring"] .. "|55|60|2|1||",
     [1453] = L["Stormwind City"] .. "|0|0|0|2||",
     [1454] = L["Orgrimmar"] .. "|0|0|1|1||",
-	--[86] = L["Orgrimmar"] .. "|0|0|1|1||",
+    --[86] = L["Orgrimmar"] .. "|0|0|1|1||",
     [1455] = L["Ironforge"] .. "|0|0|0|2||",
     [1456] = L["Thunder Bluff"] .. "|0|0|1|1||",
     [1457] = L["Darnassus"] .. "|0|0|0|1||",
@@ -87,7 +87,7 @@ Nx.Zones = {
     [1941] = L["Eversong Woods"] .. "|1|20|1|2||",
     [1942] = L["Ghostlands"] .. "|10|20|1|2||",
     [1943] = L["Azuremyst Isle"] .. "|1|20|0|1||",
-    [1944] = L["Hellfire Peninsula"] .. "|58|63|2|3||",  
+    [1944] = L["Hellfire Peninsula"] .. "|58|63|2|3||",
     [1946] = L["Zangarmarsh"] .. "|60|64|2|3||",
     [1947] = L["The Exodar"] .. "|0|0|0|1||",
     [1948] = L["Shadowmoon Valley"] .. "|67|70|2|3||",
@@ -100,7 +100,7 @@ Nx.Zones = {
     [1955] = L["Shattrath City"] .. "|0|0|2|3||",
     [1956] = L["Eye of the Storm"] .. "|0|0|3|4||",
     [1957] = L["Isle of Quel'Danas"] .. "|70|70|1|2||",
-	
+
     [113] = L["Northrend"] .. "|0|0|2|4||",
     [114] = L["Borean Tundra"] .. "|68|72|2|4||",
     [115] = L["Dragonblight"] .. "|71|75|2|4||",
@@ -110,7 +110,7 @@ Nx.Zones = {
     [119] = L["Sholazar Basin"] .. "|76|78|2|4||",
     [120] = L["The Storm Peaks"] .. "|77|80|2|4||",
     [121] = L["Zul'Drak"] .. "|74|76|2|4||",
---    [122] = L["Isle of Quel'Danas"] .. "|65|70|2|2||",
+    --    [122] = L["Isle of Quel'Danas"] .. "|65|70|2|2||",
     [123] = L["Wintergrasp"] .. "|77|80|2|4||",
     [124] = L["Plaguelands: The Scarlet Enclave"] .. "|20|60|2|2||",
     [125] = L["Dalaran"] .. "|0|0|2|4||",
@@ -142,7 +142,7 @@ Nx.Zones = {
     [185] = L["Halls of Reflection"] .. "|80|80|3|5|118|54.8|90.8|5",
     [186] = L["Icecrown Citadel"] .. "|80|80|3|5|118|53.3|85.6|1025",
     [200] = L["The Ruby Sanctum"] .. "|80|80|3|5|115|0|0|1025",
-    [213] = L["Ragefire Chasm"] .. "|20|60|3|5|1454|51.9|58.4|5",
+    [213] = L["Ragefire Chasm"] .. "|20|60|3|5|1454|52.7|49.1|5",
     [219] = L["Zul'Farrak"] .. "|20|60|3|5|1446|39.2|21.4|5",
     [220] = L["The Temple of Atal'Hakkar"] .. "|20|60|3|5|1435|69.83|54.14|5",
     [221] = L["Blackfathom Deeps"] .. "|20|60|3|5|1440|14.15|13.9|5",
@@ -198,10 +198,10 @@ Nx.Zones = {
 
 
 Nx.SubNames = {
-		[L["Dalaran"]] = {
-			[L["Cantrips & Crows"]] = 2,
-			[L["Circle of Wills"]] = 2,
-			[L["The Black Market"]] = 2,
-			[L["The Underbelly"]] = 2,
-		}
-	}
+    [L["Dalaran"]] = {
+        [L["Cantrips & Crows"]] = 2,
+        [L["Circle of Wills"]] = 2,
+        [L["The Black Market"]] = 2,
+        [L["The Underbelly"]] = 2,
+    }
+}
