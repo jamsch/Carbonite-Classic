@@ -3189,7 +3189,7 @@ function Nx.Map:BlizzToggleWorldMap()
 		local map = self:GetMap(1)
 		map:DetachWorldMap()
 		if not InCombatLockdown() then
-			ShowUIPanel(WorldMapFrame)
+			WorldMapFrame:HandleUserActionToggleSelf()
 		else
 			WorldMapFrame:Show()
 		end
@@ -8996,7 +8996,7 @@ end
 
 function Nx.Map:SetCurrentMap(mapId)
 	if mapId then
-		--		Nx.prt ("Nx.Map:SetToCurrentZone %s", mapId)
+		-- Nx.prt ("Nx.Map:SetToCurrentZone %s", mapId)
 		self.BaseScale = 1
 		for n = 1, Nx.Map.ContCnt do
 			for _, j in pairs(Nx.Map.MapZones[n]) do

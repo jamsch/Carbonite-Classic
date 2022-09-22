@@ -23,10 +23,10 @@
 -------------------------------------------------------------------------------
 -- Tables
 
-local AceConfig 	= LibStub("AceConfig-3.0")
-local AceConfigReg 	= LibStub("AceConfigRegistry-3.0")
-local AceConfigDialog 	= LibStub("AceConfigDialog-3.0")
-local L = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
+local AceConfig       = LibStub("AceConfig-3.0")
+local AceConfigReg    = LibStub("AceConfigRegistry-3.0")
+local AceConfigDialog = LibStub("AceConfigDialog-3.0")
+local L               = LibStub("AceLocale-3.0"):GetLocale("Carbonite")
 
 local modular_config = {}
 
@@ -37,7 +37,7 @@ local function profilesConfig()
 		profiles = {
 			type = "group",
 			name = L["Profiles"],
-			childGroups	= "tab",
+			childGroups = "tab",
 			args = {
 				main = {
 					type = "group",
@@ -52,7 +52,7 @@ local function profilesConfig()
 	return profiles
 end
 
-function Nx.Opts:AddToProfileMenu(ProfileName,ProfileOrder,ProfileDB)
+function Nx.Opts:AddToProfileMenu(ProfileName, ProfileOrder, ProfileDB)
 	if not profiles then
 		return
 	end
@@ -80,13 +80,18 @@ local function mainConfig()
 					args = {
 						title = {
 							type = "description",
-							name = L["\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."] ..
-								"\n\n\n|cff9999ff" .. L["Release Version"] .. ": |cffd700ff" .. Nx.VERMAJOR .. "." .. (Nx.VERMINOR*10) .. " Build " .. Nx.BUILD .. "\n" ..
+							name = L[
+								"\nCarbonite is a full featured, powerful map addon providing a versitile easy to use google style map which either can replace or work with the current blizzard maps.\n\nThrough modules it can also be expanded to do even more to help make your game easier."
+								] ..
+								"\n\n\n|cff9999ff" ..
+								L["Release Version"] ..
+								": |cffd700ff" .. Nx.VERMAJOR .. "." .. (Nx.VERMINOR * 10) .. " Build " .. Nx.BUILD .. "\n" ..
 								"|cff9999ff" .. L["Maintained by"] .. ": |cffd700ffIrcDirk\n" ..
-								"|cff9999ff" .. L["Website"] .. ": |cffd700ffhttps://github.com/IrcDirk/Carbonite-Classic\n"..
-								"\n"..
-								"|cd700ffff" .. L["For support, please visit the forums for Carbonite on WoW Interface or Curse/Twitch."] .. "\n"..
-								"|cd700ffff" .. L["Special thanks to"] .. ": \n\n"..
+								"|cff9999ff" .. L["Website"] .. ": |cffd700ffhttps://github.com/IrcDirk/Carbonite-Classic\n" ..
+								"\n" ..
+								"|cd700ffff" ..
+								L["For support, please visit the forums for Carbonite on WoW Interface or Curse/Twitch."] .. "\n" ..
+								"|cd700ffff" .. L["Special thanks to"] .. ": \n\n" ..
 								"|cff9999ff" .. L["Rythal for hard work in all those years"] .. "\n" ..
 								"|cff9999ff" .. L["Cirax for Carbonite2 Logo"] .. "\n" ..
 								"|cff9999ff" .. L["ircdirk & atl77 for Quest Database updates"] .. "\n" ..
@@ -109,7 +114,7 @@ local function mainConfig()
 			config.args[k] = (type(v) == "function") and v() or v
 		end
 	end
-  return config
+	return config
 end
 
 local battlegrounds
@@ -193,21 +198,21 @@ local function generalOptions()
 					type = "select",
 					name = L["Default Chat Channel"],
 					desc = L["Allows selection of which chat window to display Carbonite messages"],
-					get	= function()
+					get = function()
 						local vals = Nx.Opts:CalcChoices("Chat")
-						for a,b in pairs(vals) do
+						for a, b in pairs(vals) do
 							if (b == Nx.db.profile.General.ChatMsgFrm) then
 								return a
 							end
 						end
 						return ""
 					end,
-					set	= function(info, name)
+					set = function(info, name)
 						local vals = Nx.Opts:CalcChoices("Chat")
 						Nx.db.profile.General.ChatMsgFrm = vals[name]
 						Nx.Opts:NXCmdUIChange()
 					end,
-					values	= function()
+					values = function()
 						return Nx.Opts:CalcChoices("Chat")
 					end,
 				},
@@ -251,12 +256,12 @@ local function generalOptions()
 end
 
 local map
-local function mapConfig ()
+local function mapConfig()
 	if not map then
 		map = {
 			type = "group",
 			name = L["Map Options"],
-			childGroups	= "tab",
+			childGroups = "tab",
 			args = {
 				mainMap = {
 					order = 1,
@@ -281,7 +286,9 @@ local function mapConfig ()
 							type = "toggle",
 							width = "full",
 							name = L["Enable Combat Compatibility Mode"],
-							desc = L["When Enabled, Carbonite will performe combat checks before any map/window functions. This eliminates other UI's from causing protected mode errors."],
+							desc = L[
+								"When Enabled, Carbonite will performe combat checks before any map/window functions. This eliminates other UI's from causing protected mode errors."
+								],
 							get = function()
 								return Nx.db.profile.Map.Compatibility
 							end,
@@ -341,7 +348,7 @@ local function mapConfig ()
 								Nx.db.profile.Map.MaxMouseIgnore = not Nx.db.profile.Map.MaxMouseIgnore
 							end,
 						},
---[[						Doesn't work for now.
+						--[[						Doesn't work for now.
 
 							ownMap = {
 							order = 7,
@@ -356,13 +363,14 @@ local function mapConfig ()
 								Nx.db.profile.Map.WOwn = not Nx.db.profile.Map.WOwn
 							end,
 						},
-]]--
+]] --
 						restoreMap = {
 							order = 7,
 							type = "toggle",
 							width = "full",
 							name = L["Close Map instead of minimize"] .. "\n",
-							desc = L["When enabled, pressing either 'M' or ESC will close the maximized map instead of switching back to small map."],
+							desc = L[
+								"When enabled, pressing either 'M' or ESC will close the maximized map instead of switching back to small map."],
 							get = function()
 								return Nx.db.profile.Map.MaxRestoreHide
 							end,
@@ -475,7 +483,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.Map.TrailDist
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.Map.TrailDist = value
 							end,
 						},
@@ -491,7 +499,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.Map.TrailCnt
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.Map.TrailCnt = value
 							end,
 						},
@@ -507,7 +515,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.Map.TrailTime
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.Map.TrailTime = value
 							end,
 						},
@@ -532,45 +540,45 @@ local function mapConfig ()
 						},
 						TooltipAnchor = {
 							order = 22,
-							type	= "select",
-							name	= "  " .. L["Map Tooltip Anchor"],
-							desc	= L["Sets the anchor point for tooltips on the map"],
-							get	= function()
+							type = "select",
+							name = "  " .. L["Map Tooltip Anchor"],
+							desc = L["Sets the anchor point for tooltips on the map"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("Anchor0")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.LocTipAnchor) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.LocTipAnchor) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("Anchor0")
 								Nx.db.profile.Map.LocTipAnchor = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("Anchor0")
 							end,
 						},
 						TooltipAnchorRel = {
 							order = 23,
-							type	= "select",
-							name	= "  " .. L["Map Tooltip Anchor To Map"],
-							desc	= L["Sets the secondary anchor point for tooltips on the map"],
-							get	= function()
+							type = "select",
+							name = "  " .. L["Map Tooltip Anchor To Map"],
+							desc = L["Sets the secondary anchor point for tooltips on the map"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("Anchor0")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.LocTipAnchorRel) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.LocTipAnchorRel) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("Anchor0")
 								Nx.db.profile.Map.LocTipAnchorRel = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("Anchor0")
 							end,
 						},
@@ -673,7 +681,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.Map.PlyrArrowSize
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.Map.PlyrArrowSize = value
 							end,
 						},
@@ -690,7 +698,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.Map.IconScaleMin
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.Map.IconScaleMin = value
 							end,
 						},
@@ -707,7 +715,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.Map.LineThick
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.Map.LineThick = value
 							end,
 						},
@@ -724,7 +732,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.Map.ZoneDrawCnt
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.Map.ZoneDrawCnt = value
 							end,
 						},
@@ -741,7 +749,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.Map.DetailSize
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.Map.DetailSize = value
 								Nx.Opts.NXCmdReload()
 							end,
@@ -761,240 +769,240 @@ local function mapConfig ()
 							type = "select",
 							name = "           " .. L["Alt Left Click"],
 							desc = L["Sets the action performed when left clicking holding ALT"],
-							get	= function()
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.ButLAlt) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.ButLAlt) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.ButLAlt = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						ButLCtrl = {
 							order = 40,
-							type	= "select",
-							name	= "           " .. L["Ctrl Left Click"],
-							desc	= L["Sets the action performed when left clicking holding CTRL"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Ctrl Left Click"],
+							desc = L["Sets the action performed when left clicking holding CTRL"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.ButLCtrl) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.ButLCtrl) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.ButLCtrl = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						ButM = {
 							order = 41,
-							type	= "select",
-							name	= "           " .. L["Middle Click"],
-							desc	= L["Sets the action performed when clicking your middle mouse button"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Middle Click"],
+							desc = L["Sets the action performed when clicking your middle mouse button"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.ButM) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.ButM) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.ButM = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						ButMAlt = {
 							order = 42,
-							type	= "select",
-							name	= "           " .. L["Alt Middle Click"],
-							desc	= L["Sets the action performed when middle clicking holding ALT"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Alt Middle Click"],
+							desc = L["Sets the action performed when middle clicking holding ALT"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.ButMAlt) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.ButMAlt) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.ButMAlt = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						ButMCtrl = {
 							order = 43,
-							type	= "select",
-							name	= "           " .. L["Ctrl Middle Click"],
-							desc	= L["Sets the action performed when middle clicking holding CTRL"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Ctrl Middle Click"],
+							desc = L["Sets the action performed when middle clicking holding CTRL"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.ButMCtrl) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.ButMCtrl) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.ButMCtrl = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						ButR = {
 							order = 44,
-							type	= "select",
-							name	= "           " .. L["Right Click"],
-							desc	= L["Sets the action performed when right clicking the map"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Right Click"],
+							desc = L["Sets the action performed when right clicking the map"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.ButR) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.ButR) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.ButR = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						ButRAlt = {
 							order = 45,
-							type	= "select",
-							name	= "           " .. L["Alt Right Click"],
-							desc	= L["Sets the action performed when Right clicking holding ALT"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Alt Right Click"],
+							desc = L["Sets the action performed when Right clicking holding ALT"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.ButRAlt) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.ButRAlt) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.ButRAlt = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						ButRCtrl = {
 							order = 46,
-							type	= "select",
-							name	= "           " .. L["Ctrl Right Click"],
-							desc	= L["Sets the action performed when right clicking holding CTRL"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Ctrl Right Click"],
+							desc = L["Sets the action performed when right clicking holding CTRL"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.ButRCtrl) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.ButRCtrl) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.ButRCtrl = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						But4 = {
 							order = 47,
-							type	= "select",
-							name	= "           " .. L["Button 4 Click"],
-							desc	= L["Sets the action performed when clicking mouse button 4"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Button 4 Click"],
+							desc = L["Sets the action performed when clicking mouse button 4"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.But4) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.But4) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.But4 = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						But4Alt = {
 							order = 48,
-							type	= "select",
-							name	= "           " .. L["Alt Button 4 Click"],
-							desc	= L["Sets the action performed when pressing mouse 4 while holding ALT"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Alt Button 4 Click"],
+							desc = L["Sets the action performed when pressing mouse 4 while holding ALT"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.But4Alt) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.But4Alt) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.But4Alt = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
 						But4Ctrl = {
 							order = 49,
-							type	= "select",
-							name	= "           " .. L["Ctrl Button 4 Click"],
-							desc	= L["Sets the action performed when clicking 4th mouse button holding CTRL"],
-							get	= function()
+							type = "select",
+							name = "           " .. L["Ctrl Button 4 Click"],
+							desc = L["Sets the action performed when clicking 4th mouse button holding CTRL"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("MapFunc")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.Map.But4Ctrl) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.Map.But4Ctrl) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("MapFunc")
 								Nx.db.profile.Map.But4Ctrl = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("MapFunc")
 							end,
 						},
@@ -1010,13 +1018,15 @@ local function mapConfig ()
 							type = "toggle",
 							width = "full",
 							name = L["Combine Blizzard Minimap with Carbonite Minimap"],
-							desc = L["When enabled, Carbonite will combine the minimap into itself to create a more functional minimap for you (RELOAD REQUIRED)"],
+							desc = L[
+								"When enabled, Carbonite will combine the minimap into itself to create a more functional minimap for you (RELOAD REQUIRED)"
+								],
 							get = function()
 								return Nx.db.profile.MiniMap.Own
 							end,
 							set = function()
 								Nx.db.profile.MiniMap.Own = not Nx.db.profile.MiniMap.Own
-								Nx.Opts:NXCmdMMOwnChange(_,Nx.db.profile.MiniMap.Own)
+								Nx.Opts:NXCmdMMOwnChange(_, Nx.db.profile.MiniMap.Own)
 							end,
 						},
 						spacer1 = {
@@ -1036,13 +1046,15 @@ local function mapConfig ()
 							set = function()
 								Nx.db.profile.MiniMap.Square = not Nx.db.profile.MiniMap.Square
 							end,
-						},]]--
+						},]] --
 						MMAboveIcons = {
 							order = 4,
 							type = "toggle",
 							width = "full",
 							name = L["Minimap is drawn above icons"],
-							desc = L["When enabled, Carbonite will draw the minimap above your map icons, you can use the CTRL key on your keyboard to toggle which layer is top"],
+							desc = L[
+								"When enabled, Carbonite will draw the minimap above your map icons, you can use the CTRL key on your keyboard to toggle which layer is top"
+								],
 							get = function()
 								return Nx.db.profile.MiniMap.AboveIcons
 							end,
@@ -1062,7 +1074,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.MiniMap.IScale
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.MiniMap.IScale = value
 							end,
 						},
@@ -1078,7 +1090,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.MiniMap.DockIScale
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.MiniMap.DockIScale = value
 							end,
 						},
@@ -1095,7 +1107,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.MiniMap.NodeGD
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.MiniMap.NodeGD = value
 								Nx.Opts:NXCmdMMChange()
 							end,
@@ -1222,7 +1234,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.MiniMap.DXO
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.MiniMap.DXO = value
 							end,
 						},
@@ -1238,7 +1250,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.MiniMap.DYO
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.MiniMap.DYO = value
 							end,
 						},
@@ -1320,7 +1332,9 @@ local function mapConfig ()
 							type = "toggle",
 							width = "full",
 							name = L["Move Minimap Buttons into Carbonite Minimap Frame"],
-							desc = L["When enabled, Carbonite will pull all minimap icons into it's own button frame which can be moved around and minimized as needed (RELOAD REQUIRED)"],
+							desc = L[
+								"When enabled, Carbonite will pull all minimap icons into it's own button frame which can be moved around and minimized as needed (RELOAD REQUIRED)"
+								],
 							get = function()
 								return Nx.db.profile.MiniMap.ButOwn
 							end,
@@ -1345,7 +1359,7 @@ local function mapConfig ()
 							end,
 							set = function()
 								Nx.db.profile.MiniMap.ButHide = not Nx.db.profile.MiniMap.ButHide
-								Nx.Window:SetAttribute("NxMapDock","H",Nx.db.profile.MiniMap.ButHide)
+								Nx.Window:SetAttribute("NxMapDock", "H", Nx.db.profile.MiniMap.ButHide)
 							end,
 						},
 						MMButLock = {
@@ -1359,7 +1373,7 @@ local function mapConfig ()
 							end,
 							set = function()
 								Nx.db.profile.MiniMap.ButLock = not Nx.db.profile.MiniMap.ButLock
-								Nx.Window:SetAttribute("NxMapDock","L",Nx.db.profile.MiniMap.ButLock)
+								Nx.Window:SetAttribute("NxMapDock", "L", Nx.db.profile.MiniMap.ButLock)
 							end,
 						},
 						spacer2 = {
@@ -1380,7 +1394,7 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.MiniMap.ButColumns
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.MiniMap.ButColumns = value
 							end,
 						},
@@ -1397,29 +1411,29 @@ local function mapConfig ()
 							get = function()
 								return Nx.db.profile.MiniMap.ButSpacing
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.MiniMap.ButSpacing = value
 							end,
 						},
 						ButCorner = {
 							order = 8,
-							type	= "select",
-							name	= L["Corner For First Button"],
-							desc	= L["Sets the anchor point in multi-column setups for first minimap button"],
-							get	= function()
+							type = "select",
+							name = L["Corner For First Button"],
+							desc = L["Sets the anchor point in multi-column setups for first minimap button"],
+							get = function()
 								local vals = Nx.Opts:CalcChoices("Corner")
-								for a,b in pairs(vals) do
-								  if (b == Nx.db.profile.MiniMap.ButCorner) then
-									 return a
-								  end
+								for a, b in pairs(vals) do
+									if (b == Nx.db.profile.MiniMap.ButCorner) then
+										return a
+									end
 								end
 								return ""
 							end,
-							set	= function(info, name)
+							set = function(info, name)
 								local vals = Nx.Opts:CalcChoices("Corner")
 								Nx.db.profile.MiniMap.ButCorner = vals[name]
 							end,
-							values	= function()
+							values = function()
 								return Nx.Opts:CalcChoices("Corner")
 							end,
 						},
@@ -1504,22 +1518,22 @@ local function fontConfig()
 					type = "select",
 					name = L["Small Font"],
 					desc = L["Sets the font to be used for small text"],
-					get	= function()
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
-						for a,b in pairs(vals) do
-						  if (b == Nx.db.profile.Font.Small) then
-							 return a
-						  end
+					get = function()
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
+						for a, b in pairs(vals) do
+							if (b == Nx.db.profile.Font.Small) then
+								return a
+							end
 						end
 						return ""
 					end,
-					set	= function(info, name)
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
+					set = function(info, name)
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
 						Nx.db.profile.Font.Small = vals[name]
 						Nx.Opts:NXCmdFontChange()
 					end,
-					values	= function()
-						return Nx.Opts:CalcChoices("FontFace","Get")
+					values = function()
+						return Nx.Opts:CalcChoices("FontFace", "Get")
 					end,
 				},
 				SmallFontSize = {
@@ -1534,7 +1548,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.SmallSize
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.SmallSize = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1551,7 +1565,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.SmallSpacing
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.SmallSpacing = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1561,22 +1575,22 @@ local function fontConfig()
 					type = "select",
 					name = L["Normal Font"],
 					desc = L["Sets the font to be used for normal text"],
-					get	= function()
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
-						for a,b in pairs(vals) do
-						  if (b == Nx.db.profile.Font.Medium) then
-							 return a
-						  end
+					get = function()
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
+						for a, b in pairs(vals) do
+							if (b == Nx.db.profile.Font.Medium) then
+								return a
+							end
 						end
 						return ""
 					end,
-					set	= function(info, name)
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
+					set = function(info, name)
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
 						Nx.db.profile.Font.Medium = vals[name]
 						Nx.Opts:NXCmdFontChange()
 					end,
-					values	= function()
-						return Nx.Opts:CalcChoices("FontFace","Get")
+					values = function()
+						return Nx.Opts:CalcChoices("FontFace", "Get")
 					end,
 				},
 				MediumFontSize = {
@@ -1591,7 +1605,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.MediumSize
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.MediumSize = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1608,7 +1622,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.MediumSpacing
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.MediumSpacing = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1618,22 +1632,22 @@ local function fontConfig()
 					type = "select",
 					name = L["Map Font"],
 					desc = L["Sets the font to be used on the map"],
-					get	= function()
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
-						for a,b in pairs(vals) do
-						  if (b == Nx.db.profile.Font.Map) then
-							 return a
-						  end
+					get = function()
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
+						for a, b in pairs(vals) do
+							if (b == Nx.db.profile.Font.Map) then
+								return a
+							end
 						end
 						return ""
 					end,
-					set	= function(info, name)
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
+					set = function(info, name)
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
 						Nx.db.profile.Font.Map = vals[name]
 						Nx.Opts:NXCmdFontChange()
 					end,
-					values	= function()
-						return Nx.Opts:CalcChoices("FontFace","Get")
+					values = function()
+						return Nx.Opts:CalcChoices("FontFace", "Get")
 					end,
 				},
 				MapFontSize = {
@@ -1648,7 +1662,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.MapSize
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.MapSize = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1665,7 +1679,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.MapSpacing
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.MapSpacing = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1680,22 +1694,22 @@ local function fontConfig()
 					type = "select",
 					name = L["Map Location Tip Font"],
 					desc = L["Sets the font to be used on the map tooltip"],
-					get	= function()
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
-						for a,b in pairs(vals) do
-						  if (b == Nx.db.profile.Font.MapLoc) then
-							 return a
-						  end
+					get = function()
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
+						for a, b in pairs(vals) do
+							if (b == Nx.db.profile.Font.MapLoc) then
+								return a
+							end
 						end
 						return ""
 					end,
-					set	= function(info, name)
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
+					set = function(info, name)
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
 						Nx.db.profile.Font.MapLoc = vals[name]
 						Nx.Opts:NXCmdFontChange()
 					end,
-					values	= function()
-						return Nx.Opts:CalcChoices("FontFace","Get")
+					values = function()
+						return Nx.Opts:CalcChoices("FontFace", "Get")
 					end,
 				},
 				MapLocFontSize = {
@@ -1710,7 +1724,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.MapLocSize
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.MapLocSize = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1727,7 +1741,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.MapLocSpacing
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.MapLocSpacing = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1742,22 +1756,22 @@ local function fontConfig()
 					type = "select",
 					name = L["Menu Font"],
 					desc = L["Sets the font to be used on the memus"],
-					get	= function()
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
-						for a,b in pairs(vals) do
-						  if (b == Nx.db.profile.Font.Menu) then
-							 return a
-						  end
+					get = function()
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
+						for a, b in pairs(vals) do
+							if (b == Nx.db.profile.Font.Menu) then
+								return a
+							end
 						end
 						return ""
 					end,
-					set	= function(info, name)
-						local vals = Nx.Opts:CalcChoices("FontFace","Get")
+					set = function(info, name)
+						local vals = Nx.Opts:CalcChoices("FontFace", "Get")
 						Nx.db.profile.Font.Menu = vals[name]
 						Nx.Opts:NXCmdFontChange()
 					end,
-					values	= function()
-						return Nx.Opts:CalcChoices("FontFace","Get")
+					values = function()
+						return Nx.Opts:CalcChoices("FontFace", "Get")
 					end,
 				},
 				MenuFontSize = {
@@ -1772,7 +1786,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.MenuSize
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.MenuSize = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1789,7 +1803,7 @@ local function fontConfig()
 					get = function()
 						return Nx.db.profile.Font.MenuSpacing
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Font.MenuSpacing = value
 						Nx.Opts:NXCmdFontChange()
 					end,
@@ -1801,12 +1815,12 @@ local function fontConfig()
 end
 
 local guidegather
-local function guidegatherConfig ()
+local function guidegatherConfig()
 	if not guidegather then
 		guidegather = {
 			type = "group",
 			name = L["Guide Options"],
-			childGroups	= "tab",
+			childGroups = "tab",
 			args = {
 				guideOpts = {
 					order = 1,
@@ -1825,7 +1839,7 @@ local function guidegatherConfig ()
 							get = function()
 								return Nx.db.profile.Guide.VendorVMax
 							end,
-							set = function(info,value)
+							set = function(info, value)
 								Nx.db.profile.Guide.VendorVMax = value
 							end,
 						},
@@ -1859,7 +1873,7 @@ local function guidegatherConfig ()
 							type = "execute",
 							width = "full",
 							name = L["Delete Herbalism Gather Locations"],
-							func = function ()
+							func = function()
 								Nx.Opts:NXCmdDeleteHerb()
 							end,
 						},
@@ -1868,7 +1882,7 @@ local function guidegatherConfig ()
 							type = "execute",
 							width = "full",
 							name = L["Delete Mining Gather Locations"],
-							func = function ()
+							func = function()
 								Nx.Opts:NXCmdDeleteMine()
 							end,
 						},
@@ -1880,13 +1894,13 @@ local function guidegatherConfig ()
 							func = function ()
 								Nx.Opts:NXCmdDeleteTimber()
 							end,
-						},]]--
+						},]] --
 						CmdDelMisc = {
 							order = 6,
 							type = "execute",
 							width = "full",
 							name = L["Delete Misc Gather Locations"],
-							func = function ()
+							func = function()
 								Nx.Opts:NXCmdDeleteMisc()
 							end,
 						},
@@ -1900,7 +1914,7 @@ local function guidegatherConfig ()
 							type = "execute",
 							width = "full",
 							name = L["Import Herbs From GatherMate2_Data"],
-							func = function ()
+							func = function()
 								Nx.Opts:NXCmdImportCarbHerb()
 							end,
 						},
@@ -1909,7 +1923,7 @@ local function guidegatherConfig ()
 							type = "execute",
 							width = "full",
 							name = L["Import Mines From GatherMate2_Data"],
-							func = function ()
+							func = function()
 								Nx.Opts:NXCmdImportCarbMine()
 							end,
 						},
@@ -1918,7 +1932,7 @@ local function guidegatherConfig ()
 							type = "execute",
 							width = "full",
 							name = L["Import Misc From GatherMate2_Data"],
-							func = function ()
+							func = function()
 								Nx.Opts:NXCmdImportCarbMisc()
 							end,
 						},
@@ -1935,7 +1949,7 @@ local function guidegatherConfig ()
 							width = "double",
 							name = L["Enable All"],
 							func = function()
-								for i = 1,76 do
+								for i = 1, 76 do
 									Nx.db.profile.Guide.ShowHerbs[i] = true
 								end
 							end,
@@ -1946,7 +1960,7 @@ local function guidegatherConfig ()
 							width = "double",
 							name = L["Disable All"],
 							func = function()
-								for i = 1,76 do
+								for i = 1, 76 do
 									Nx.db.profile.Guide.ShowHerbs[i] = false
 								end
 							end,
@@ -2345,8 +2359,8 @@ local function guidegatherConfig ()
 							order = 33,
 							type = "toggle",
 							width = "full",
-							name = L["Sorrowmoss"],
-							desc = L["Display"] .. " " .. L["Sorrowmoss"] .. " " .. L["Nodes On Map"],
+							name = L["Plaguebloom"],
+							desc = L["Display"] .. " " .. L["Plaguebloom"] .. " " .. L["Nodes On Map"],
 							get = function()
 								return Nx.db.profile.Guide.ShowHerbs[31]
 							end,
@@ -2588,7 +2602,7 @@ local function guidegatherConfig ()
 								Nx.db.profile.Guide.ShowHerbs[49] = not Nx.db.profile.Guide.ShowHerbs[49]
 							end,
 						},
---[[
+						--[[
 						azsharaveil = {
 							order = 52,
 							type = "toggle",
@@ -3044,7 +3058,7 @@ local function guidegatherConfig ()
 								Nx.db.profile.Guide.ShowHerbs[84] = not Nx.db.profile.Guide.ShowHerbs[84]
 							end,
 						},
-]]--
+]] --
 					},
 				},
 				MinesDisp = {
@@ -3058,7 +3072,7 @@ local function guidegatherConfig ()
 							width = "double",
 							name = L["Enable All"],
 							func = function()
-								for i = 1,50 do
+								for i = 1, 50 do
 									Nx.db.profile.Guide.ShowMines[i] = true
 								end
 							end,
@@ -3069,7 +3083,7 @@ local function guidegatherConfig ()
 							width = "double",
 							name = L["Disable All"],
 							func = function()
-								for i = 1,50 do
+								for i = 1, 50 do
 									Nx.db.profile.Guide.ShowMines[i] = false
 								end
 							end,
@@ -3412,7 +3426,7 @@ local function guidegatherConfig ()
 								Nx.db.profile.Guide.ShowMines[26] = not Nx.db.profile.Guide.ShowMines[26]
 							end,
 						},
---[[
+						--[[
 						obsid = {
 							order = 29,
 							type = "toggle",
@@ -3855,7 +3869,7 @@ local function guidegatherConfig ()
 								Nx.db.profile.Guide.ShowMines[60] = not Nx.db.profile.Guide.ShowMines[60]
 							end,
 						},
-]]--
+]] --
 					},
 				},
 				--[[TimberDisp = {
@@ -3925,7 +3939,7 @@ local function guidegatherConfig ()
 							end,
 						},
 					},
-				},]]--
+				},]] --
 			},
 		}
 	end
@@ -3984,7 +3998,9 @@ local function commConfig()
 					type = "toggle",
 					width = "full",
 					name = L["Send Position & Level Ups To Friends"],
-					desc = L["When Enabled, Carbonite will send your current location and any levelups you get to your other friends using carbonite"],
+					desc = L[
+						"When Enabled, Carbonite will send your current location and any levelups you get to your other friends using carbonite"
+						],
 					get = function()
 						return Nx.db.profile.Comm.SendToFriends
 					end,
@@ -3997,7 +4013,9 @@ local function commConfig()
 					type = "toggle",
 					width = "full",
 					name = L["Send Position & Level Ups To Guild"],
-					desc = L["When Enabled, Carbonite will send your current location and any levelups you get to your other guildmates using carbonite"],
+					desc = L[
+						"When Enabled, Carbonite will send your current location and any levelups you get to your other guildmates using carbonite"
+						],
 					get = function()
 						return Nx.db.profile.Comm.SendToGuild
 					end,
@@ -4010,7 +4028,9 @@ local function commConfig()
 					type = "toggle",
 					width = "full",
 					name = L["Send Position & Level Ups To Zone"],
-					desc = L["When Enabled, Carbonite will send your current location and any levelups you get to other carbonite useres in your current zone"],
+					desc = L[
+						"When Enabled, Carbonite will send your current location and any levelups you get to other carbonite useres in your current zone"
+						],
 					get = function()
 						return Nx.db.profile.Comm.SendToZone
 					end,
@@ -4036,7 +4056,9 @@ local function commConfig()
 					type = "toggle",
 					width = "full",
 					name = L["Enable Global Channel (Used for version checks/notices)"],
-					desc = L["When Enabled, Carbonite will listen on a global channel for versions others are using so it can tell you if an update is available"],
+					desc = L[
+						"When Enabled, Carbonite will listen on a global channel for versions others are using so it can tell you if an update is available"
+						],
 					get = function()
 						return Nx.db.profile.Comm.Global
 					end,
@@ -4049,7 +4071,9 @@ local function commConfig()
 					type = "toggle",
 					width = "full",
 					name = L["Enable Zone Channel (Used for locations of others in your zone)"],
-					desc = L["When Enabled, Carbonite will send your current location and listen for messages from others who are in the same zone as you"],
+					desc = L[
+						"When Enabled, Carbonite will send your current location and listen for messages from others who are in the same zone as you"
+						],
 					get = function()
 						return Nx.db.profile.Comm.Zone
 					end,
@@ -4076,16 +4100,16 @@ local function skinConfig()
 					type = "select",
 					name = L["Current Skin"],
 					desc = L["Sets the current skin for carbonite windows"],
-					get	= function()
+					get = function()
 						local vals = Nx.Opts:CalcChoices("Skins")
-						for a,b in pairs(vals) do
-						  if (b == Nx.db.profile.Skin.Name) then
-							 return a
-						  end
+						for a, b in pairs(vals) do
+							if (b == Nx.db.profile.Skin.Name) then
+								return a
+							end
 						end
 						return ""
 					end,
-					set	= function(info, name)
+					set = function(info, name)
 						local vals = Nx.Opts:CalcChoices("Skins")
 						Nx.db.profile.Skin.Name = vals[name]
 						if vals[name] == "Default" then
@@ -4093,7 +4117,7 @@ local function skinConfig()
 						end
 						Nx.Skin:Set(Nx.db.profile.Skin.Name)
 					end,
-					values	= function()
+					values = function()
 						return Nx.Opts:CalcChoices("Skins")
 					end,
 				},
@@ -4104,14 +4128,14 @@ local function skinConfig()
 					name = L["Border Color of Windows"],
 					hasAlpha = true,
 					get = function()
-						local arr = { Nx.Split("|",Nx.db.profile.Skin.WinBdColor) }
+						local arr = { Nx.Split("|", Nx.db.profile.Skin.WinBdColor) }
 						local r = arr[1]
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r, g, b, a
 					end,
-					set = function(_,r,g,b,a)
+					set = function(_, r, g, b, a)
 						Nx.db.profile.Skin.WinBdColor = r .. "|" .. g .. "|" .. b .. "|" .. a
 						Nx.Skin:Update()
 					end,
@@ -4123,14 +4147,14 @@ local function skinConfig()
 					name = L["Background Color of Fixed Sized Windows"],
 					hasAlpha = true,
 					get = function()
-						local arr = { Nx.Split("|",Nx.db.profile.Skin.WinFixedBgColor) }
+						local arr = { Nx.Split("|", Nx.db.profile.Skin.WinFixedBgColor) }
 						local r = arr[1]
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r, g, b, a
 					end,
-					set = function(_,r,g,b,a)
+					set = function(_, r, g, b, a)
 						Nx.db.profile.Skin.WinFixedBgColor = r .. "|" .. g .. "|" .. b .. "|" .. a
 						Nx.Skin:Update()
 					end,
@@ -4142,14 +4166,14 @@ local function skinConfig()
 					name = L["Background Color of Resizable Windows"],
 					hasAlpha = true,
 					get = function()
-						local arr = { Nx.Split("|",Nx.db.profile.Skin.WinSizedBgColor) }
+						local arr = { Nx.Split("|", Nx.db.profile.Skin.WinSizedBgColor) }
 						local r = arr[1]
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r, g, b, a
 					end,
-					set = function(_,r,g,b,a)
+					set = function(_, r, g, b, a)
 						Nx.db.profile.Skin.WinSizedBgColor = r .. "|" .. g .. "|" .. b .. "|" .. a
 						Nx.Skin:Update()
 					end,
@@ -4214,21 +4238,21 @@ local function trackConfig()
 					type = "select",
 					name = L["Tracking HUD Arrow Graphic"],
 					desc = L["Sets the current arrow to be used in the tracking hud"],
-					get	= function()
+					get = function()
 						local vals = Nx.Opts:CalcChoices("HUDAGfx")
-						for a,b in pairs(vals) do
-						  if (b == Nx.db.profile.Track.AGfx) then
-							 return a
-						  end
+						for a, b in pairs(vals) do
+							if (b == Nx.db.profile.Track.AGfx) then
+								return a
+							end
 						end
 						return ""
 					end,
-					set	= function(info, name)
+					set = function(info, name)
 						local vals = Nx.Opts:CalcChoices("HUDAGfx")
 						Nx.db.profile.Track.AGfx = vals[name]
 						Nx.HUD:UpdateOptions()
 					end,
-					values	= function()
+					values = function()
 						return Nx.Opts:CalcChoices("HUDAGfx")
 					end,
 				},
@@ -4250,7 +4274,7 @@ local function trackConfig()
 					get = function()
 						return Nx.db.profile.Track.ASize
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Track.ASize = value
 						Nx.HUD:UpdateOptions()
 					end,
@@ -4267,7 +4291,7 @@ local function trackConfig()
 					get = function()
 						return Nx.db.profile.Track.AXO
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Track.AXO = value
 						Nx.HUD:UpdateOptions()
 					end,
@@ -4284,7 +4308,7 @@ local function trackConfig()
 					get = function()
 						return Nx.db.profile.Track.AYO
 					end,
-					set = function(info,value)
+					set = function(info, value)
 						Nx.db.profile.Track.AYO = value
 						Nx.HUD:UpdateOptions()
 					end,
@@ -4324,14 +4348,14 @@ local function trackConfig()
 					name = L["Color of target button"],
 					hasAlpha = true,
 					get = function()
-						local arr = { Nx.Split("|",Nx.db.profile.Track.TButColor) }
+						local arr = { Nx.Split("|", Nx.db.profile.Track.TButColor) }
 						local r = arr[1]
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r, g, b, a
 					end,
-					set = function(_,r,g,b,a)
+					set = function(_, r, g, b, a)
 						Nx.db.profile.Track.TButColor = r .. "|" .. g .. "|" .. b .. "|" .. a
 						Nx.HUD:UpdateOptions()
 					end,
@@ -4343,14 +4367,14 @@ local function trackConfig()
 					name = L["Color of target button in combat"],
 					hasAlpha = true,
 					get = function()
-						local arr = { Nx.Split("|",Nx.db.profile.Track.TButCombatColor) }
+						local arr = { Nx.Split("|", Nx.db.profile.Track.TButCombatColor) }
 						local r = arr[1]
 						local g = arr[2]
 						local b = arr[3]
 						local a = arr[4]
-						return r,g,b,a
+						return r, g, b, a
 					end,
-					set = function(_,r,g,b,a)
+					set = function(_, r, g, b, a)
 						Nx.db.profile.Track.TButCombatColor = r .. "|" .. g .. "|" .. b .. "|" .. a
 						Nx.Skin:Update()
 					end,
@@ -4441,19 +4465,20 @@ local function trackConfig()
 	end
 	return trackoptions
 end
+
 function Nx:SetupConfig()
 	AceConfig:RegisterOptionsTable("Carbonite", mainConfig)
-	Nx.optionsFrame = AceConfigDialog:AddToBlizOptions("Carbonite", "Carbonite",nil,"main")
-	Nx:AddToConfig("General",generalOptions(),L["General"])
+	Nx.optionsFrame = AceConfigDialog:AddToBlizOptions("Carbonite", "Carbonite", nil, "main")
+	Nx:AddToConfig("General", generalOptions(), L["General"])
 	Nx:AddToConfig("Battlegrounds", BGConfig(), L["Battlegrounds"])
-	Nx:AddToConfig("Fonts",fontConfig(),L["Fonts"])
-	Nx:AddToConfig("Guide & Gather", guidegatherConfig(),L["Guide & Gather"])
-	Nx:AddToConfig("Maps",mapConfig(),L["Maps"])
-	Nx:AddToConfig("Menus",menuConfig(),L["Menus"])
-	Nx:AddToConfig("Privacy",commConfig(),L["Privacy"])
-	Nx:AddToConfig("Profiles",profilesConfig(),L["Profiles"])
-	Nx:AddToConfig("Skin",skinConfig(),L["Skin"])
-	Nx:AddToConfig("Tracking HUD",trackConfig(),L["Tracking HUD"])
+	Nx:AddToConfig("Fonts", fontConfig(), L["Fonts"])
+	Nx:AddToConfig("Guide & Gather", guidegatherConfig(), L["Guide & Gather"])
+	Nx:AddToConfig("Maps", mapConfig(), L["Maps"])
+	Nx:AddToConfig("Menus", menuConfig(), L["Menus"])
+	Nx:AddToConfig("Privacy", commConfig(), L["Privacy"])
+	Nx:AddToConfig("Profiles", profilesConfig(), L["Profiles"])
+	Nx:AddToConfig("Skin", skinConfig(), L["Skin"])
+	Nx:AddToConfig("Tracking HUD", trackConfig(), L["Tracking HUD"])
 end
 
 function Nx:AddToConfig(name, optionsTable, displayName)
@@ -4506,8 +4531,8 @@ function Nx.Opts:Init()
 		"BottomLeft", "Bottom", "BottomRight",
 	}
 	self.Skins = {
-		"Blackout","Blackout Blues","Dialog Blue",
-		"Dialog Gold","Simple Blue","Stone","Tool Blue",
+		"Blackout", "Blackout Blues", "Dialog Blue",
+		"Dialog Gold", "Simple Blue", "Stone", "Tool Blue",
 	}
 	self.ChoicesCorner = { "TopLeft", "TopRight", "BottomLeft", "BottomRight", }
 
@@ -4519,15 +4544,15 @@ function Nx.Opts:Init()
 		["HGrad"] = "Interface\\AddOns\\Carbonite\\Gfx\\Map\\AreaGrad",
 	}
 
-	self:Reset (true)
+	self:Reset(true)
 	self:UpdateCom()
 
 	OptsInit = Nx:ScheduleTimer(self.InitTimer, .5, self)
 
---	Nx.prt ("cvar %s", GetCVar ("farclip") or "nil")
+	--	Nx.prt ("cvar %s", GetCVar ("farclip") or "nil")
 
---	RegisterCVar ("dog", "hi")
---	Nx.prt ("dog %s", GetCVar ("dog") or "nil")
+	--	RegisterCVar ("dog", "hi")
+	--	Nx.prt ("dog %s", GetCVar ("dog") or "nil")
 end
 
 --------
@@ -4535,14 +4560,14 @@ end
 
 function Nx.Opts:InitTimer()
 
---	Nx.prt ("cvar %s", GetCVar ("farclip") or "nil")
+	--	Nx.prt ("cvar %s", GetCVar ("farclip") or "nil")
 
---	Nx.prt ("dog2 %s", GetCVar ("dog") or "nil")
+	--	Nx.prt ("dog2 %s", GetCVar ("dog") or "nil")
 
 	self:NXCmdGryphonsUpdate()
 	self:NXCmdCamForceMaxDist()
 
-	OptsQO = Nx:ScheduleTimer(self.QuickOptsTimer,2,self)
+	OptsQO = Nx:ScheduleTimer(self.QuickOptsTimer, 2, self)
 end
 
 --------
@@ -4567,19 +4592,19 @@ function Nx.Opts:QuickOptsTimer()
 
 		local s = "Put the game minimap into the Carbonite map?\n\nThis will make one unified map. The minimap buttons will go into the Carbonite button window. This can also be changed using the Map Minimap options page."
 
-		Nx:ShowMessage (s, "Yes", func, "No")
+		Nx:ShowMessage(s, "Yes", func, "No")
 	end
 end
 
 --------
 -- Reset options (can be called before Init)
 
-function Nx.Opts:Reset (onlyNew)
+function Nx.Opts:Reset(onlyNew)
 	self.COpts = Nx.CurCharacter["Opts"]
 	self.Opts = Nx.db.profile
 
 	if not onlyNew then
-		Nx.prt (L["Reset global options"])
+		Nx.prt(L["Reset global options"])
 		Nx.db:ResetDB("Default")
 	end
 end
@@ -4587,7 +4612,7 @@ end
 --------
 -- Open options
 
-function Nx.Opts:Open (pageName)
+function Nx.Opts:Open(pageName)
 	InterfaceOptionsFrame_OpenToCategory("Carbonite")
 	InterfaceOptionsFrame_OpenToCategory("Carbonite")
 end
@@ -4599,56 +4624,56 @@ function Nx.Opts:Create()
 
 	-- Create Window
 
-	local win = Nx.Window:Create ("NxOpts", nil, nil, nil, 1)
+	local win = Nx.Window:Create("NxOpts", nil, nil, nil, 1)
 	self.Win = win
 	local frm = win.Frm
 
-	win:CreateButtons (true, true)
-	win:InitLayoutData (nil, -.25, -.1, -.5, -.7)
+	win:CreateButtons(true, true)
+	win:InitLayoutData(nil, -.25, -.1, -.5, -.7)
 
-	tinsert (UISpecialFrames, frm:GetName())
+	tinsert(UISpecialFrames, frm:GetName())
 
-	frm:SetToplevel (true)
+	frm:SetToplevel(true)
 
-	win:SetTitle (Nx.TXTBLUE.."CARBONITE " .. Nx.VERSION .. "|cffffffff Options")
+	win:SetTitle(Nx.TXTBLUE .. "CARBONITE " .. Nx.VERSION .. "|cffffffff Options")
 
 	-- Page list
 
 	local listW = 115
 
-	local list = Nx.List:Create (false, 0, 0, 1, 1, frm)
+	local list = Nx.List:Create(false, 0, 0, 1, 1, frm)
 	self.PageList = list
 
-	list:SetUser (self, self.OnPageListEvent)
-	win:Attach (list.Frm, 0, listW, 0, 1)
+	list:SetUser(self, self.OnPageListEvent)
+	win:Attach(list.Frm, 0, listW, 0, 1)
 
-	list:SetLineHeight (8)
+	list:SetLineHeight(8)
 
-	list:ColumnAdd ("Page", 1, listW)
+	list:ColumnAdd("Page", 1, listW)
 
-	for k, t in ipairs (Nx.OptsData) do
+	for k, t in ipairs(Nx.OptsData) do
 
-		list:ItemAdd (k)
-		list:ItemSet (1, t.N)
+		list:ItemAdd(k)
+		list:ItemSet(1, t.N)
 	end
 
 	self.PageSel = 1
 
 	-- Item list
 
-	Nx.List:SetCreateFont ("Font.Medium", 24)
+	Nx.List:SetCreateFont("Font.Medium", 24)
 
-	local list = Nx.List:Create (false, 0, 0, 1, 1, win.Frm)
+	local list = Nx.List:Create(false, 0, 0, 1, 1, win.Frm)
 	self.List = list
 
-	list:SetUser (self, self.OnListEvent)
+	list:SetUser(self, self.OnListEvent)
 
-	list:SetLineHeight (12, 3)
+	list:SetLineHeight(12, 3)
 
-	list:ColumnAdd ("", 1, 40)
-	list:ColumnAdd ("", 2, 900)
+	list:ColumnAdd("", 1, 40)
+	list:ColumnAdd("", 2, 900)
 
-	win:Attach (list.Frm, listW, 1, 0, 1)
+	win:Attach(list.Frm, listW, 1, 0, 1)
 
 	--
 
@@ -4667,10 +4692,10 @@ end
 
 function Nx.Opts:NXCmdCamForceMaxDist()
 
---	Nx.prt ("Cam %s", GetCVar ("cameraDistanceMaxFactor"))
+	--	Nx.prt ("Cam %s", GetCVar ("cameraDistanceMaxFactor"))
 
 	if Nx.db.profile.General.CameraForceMaxDist then
-		SetCVar ("cameraDistanceMaxZoomFactor", 2.6)
+		SetCVar("cameraDistanceMaxZoomFactor", 2.6)
 	end
 end
 
@@ -4689,14 +4714,16 @@ function Nx.Opts:NXCmdDeleteHerb()
 	local function func()
 		Nx:GatherDeleteHerb()
 	end
-	Nx:ShowMessage (L["Delete Herbalism Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
+
+	Nx:ShowMessage(L["Delete Herbalism Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdDeleteTimber()
 	local function func()
 		Nx.GatherDeleteTimber()
 	end
-	Nx:ShowMessage (L["Delete Timber Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
+
+	Nx:ShowMessage(L["Delete Timber Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdDeleteMine()
@@ -4704,7 +4731,8 @@ function Nx.Opts:NXCmdDeleteMine()
 	local function func()
 		Nx:GatherDeleteMine()
 	end
-	Nx:ShowMessage (L["Delete Mining Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
+
+	Nx:ShowMessage(L["Delete Mining Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdDeleteMisc()
@@ -4712,7 +4740,8 @@ function Nx.Opts:NXCmdDeleteMisc()
 	local function func()
 		Nx:GatherDeleteMisc()
 	end
-	Nx:ShowMessage (L["Delete Misc Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
+
+	Nx:ShowMessage(L["Delete Misc Gather Locations"] .. "?", L["Delete"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdImportCarbHerb()
@@ -4720,7 +4749,8 @@ function Nx.Opts:NXCmdImportCarbHerb()
 	local function func()
 		Nx:GatherImportCarbHerb()
 	end
-	Nx:ShowMessage (L["Import Herbs"] .. "?", L["Import"], func, L["Cancel"])
+
+	Nx:ShowMessage(L["Import Herbs"] .. "?", L["Import"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdImportCarbMine()
@@ -4728,7 +4758,8 @@ function Nx.Opts:NXCmdImportCarbMine()
 	local function func()
 		Nx:GatherImportCarbMine()
 	end
-	Nx:ShowMessage (L["Import Mining"] .. "?", L["Import"], func, L["Cancel"])
+
+	Nx:ShowMessage(L["Import Mining"] .. "?", L["Import"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdImportCarbMisc()
@@ -4736,7 +4767,8 @@ function Nx.Opts:NXCmdImportCarbMisc()
 	local function func()
 		Nx:GatherImportCarbMisc()
 	end
-	Nx:ShowMessage (L["Import Misc"] .. "?", L["Import"], func, L["Cancel"])
+
+	Nx:ShowMessage(L["Import Misc"] .. "?", L["Import"], func, L["Cancel"])
 end
 
 --[[
@@ -4763,8 +4795,8 @@ function Nx.Opts:NXCmdInfoWinUpdate()
 	end
 end
 
-function Nx.Opts:NXCmdMMOwnChange (item, var)
-	Nx.db.profile.MiniMap.ShowOldNameplate = not var		-- Nameplate is opposite of integration
+function Nx.Opts:NXCmdMMOwnChange(item, var)
+	Nx.db.profile.MiniMap.ShowOldNameplate = not var -- Nameplate is opposite of integration
 	Nx.db.profile.MiniMap.ButOwn = var
 	self:Update()
 	self:NXCmdReload()
@@ -4778,12 +4810,12 @@ end
 -- Generic minimap change
 
 function Nx.Opts:NXCmdMMChange()
-	local map = Nx.Map:GetMap (1)
-	map:MinimapNodeGlowInit (true)
+	local map = Nx.Map:GetMap(1)
+	map:MinimapNodeGlowInit(true)
 end
 
 function Nx.Opts:NXCmdMapToolBarUpdate()
-	local map = Nx.Map:GetMap (1)
+	local map = Nx.Map:GetMap(1)
 	map:UpdateToolBar()
 end
 
@@ -4791,8 +4823,8 @@ end
 --	Nx.Quest.Watch:SetFont()
 --end
 
-function Nx.Opts:NXCmdQWFadeAll (item, var)
-	Nx.Quest.Watch:WinUpdateFade (var and Nx.Quest.Watch.Win:GetFade() or 1, true)
+function Nx.Opts:NXCmdQWFadeAll(item, var)
+	Nx.Quest.Watch:WinUpdateFade(var and Nx.Quest.Watch.Win:GetFade() or 1, true)
 end
 
 function Nx.Opts:NXCmdQWHideRaid()
@@ -4801,62 +4833,62 @@ end
 
 function Nx.Opts:NXCmdImportCharSettings()
 
-	local function func (self, name)
+	local function func(self, name)
 
 		local function func()
 
---			Nx.prt ("OK %s", name)
+			--			Nx.prt ("OK %s", name)
 
-			if Nx:CopyCharacterData (name, UnitName ("player")) then
+			if Nx:CopyCharacterData(name, UnitName("player")) then
 				ReloadUI()
 			end
 		end
 
-		Nx:ShowMessage (format ("Import %s character data and reload?", name), "Import", func, "Cancel")
+		Nx:ShowMessage(format("Import %s character data and reload?", name), "Import", func, "Cancel")
 	end
 
 	local t = {}
 
-	for rc in pairs (Nx.db.global.Characters) do
-		tinsert (t, rc)
+	for rc in pairs(Nx.db.global.Characters) do
+		tinsert(t, rc)
 	end
 
-	sort (t)
+	sort(t)
 
-	Nx.DropDown:Start (self, func)
-	Nx.DropDown:AddT (t, 1)
-	Nx.DropDown:Show (self.List.Frm)
+	Nx.DropDown:Start(self, func)
+	Nx.DropDown:AddT(t, 1)
+	Nx.DropDown:Show(self.List.Frm)
 end
 
 function Nx.Opts:NXCmdDeleteCharSettings()
 
-	local function func (self, name)
+	local function func(self, name)
 
 		local function func()
 
---			Nx.prt ("OK %s", name)
+			--			Nx.prt ("OK %s", name)
 
-			Nx:DeleteCharacterData (name)
+			Nx:DeleteCharacterData(name)
 		end
 
-		Nx:ShowMessage (format ("Delete %s character data?", name), "Delete", func, "Cancel")
+		Nx:ShowMessage(format("Delete %s character data?", name), "Delete", func, "Cancel")
 	end
 
 	local rcName = Nx:GetRealmCharName()
 
 	local t = {}
 
-	for rc in pairs (Nx.db.global.Characters) do
+	for rc in pairs(Nx.db.global.Characters) do
 		if rc ~= rcName then
-			tinsert (t, rc)
+			tinsert(t, rc)
 		end
 	end
 
-	sort (t)
+	sort(t)
 
-	Nx.DropDown:Start (self, func)
-	Nx.DropDown:AddT (t, 1)
-	Nx.DropDown:Show (self.List.Frm)
+	Nx.DropDown:Start(self, func)
+	Nx.DropDown:AddT(t, 1)
+	Nx.DropDown:Show(self.List.Frm)
 end
 
 function Nx.Opts:NXCmdResetOpts()
@@ -4875,7 +4907,7 @@ function Nx.Opts:NXCmdResetOpts()
 		self:NXCmdUIChange()
 	end
 
-	Nx:ShowMessage (L["Reset options"] .. "?", "Reset", func, "Cancel")
+	Nx:ShowMessage(L["Reset options"] .. "?", "Reset", func, "Cancel")
 end
 
 function Nx.Opts:NXCmdResetWinLayouts()
@@ -4884,7 +4916,7 @@ function Nx.Opts:NXCmdResetWinLayouts()
 		Nx.Window:ResetLayouts()
 	end
 
-	Nx:ShowMessage (L["Reset window layouts"] .. "?", "Reset", func, "Cancel")
+	Nx:ShowMessage(L["Reset window layouts"] .. "?", "Reset", func, "Cancel")
 end
 
 function Nx.Opts:NXCmdResetWatchWinLayout()
@@ -4897,7 +4929,7 @@ function Nx.Opts:NXCmdReload()
 		ReloadUI()
 	end
 
-	Nx:ShowMessage (L["Reload UI"] .. "?", L["Reload"], func, L["Cancel"])
+	Nx:ShowMessage(L["Reload UI"] .. "?", L["Reload"], func, L["Cancel"])
 end
 
 function Nx.Opts:NXCmdHUDChange()
@@ -4913,12 +4945,12 @@ end
 
 --------
 
-function Nx.Opts:OnSetSize (w, h)
+function Nx.Opts:OnSetSize(w, h)
 
-	Nx.Opts.FStr:SetWidth (w)
+	Nx.Opts.FStr:SetWidth(w)
 end
 
-function Nx.Opts:OnPageListEvent (eventName, sel, val2)
+function Nx.Opts:OnPageListEvent(eventName, sel, val2)
 
 	if eventName == "select" or eventName == "back" then
 		self.PageSel = sel
@@ -4926,7 +4958,7 @@ function Nx.Opts:OnPageListEvent (eventName, sel, val2)
 	end
 end
 
-function Nx.Opts:OnListEvent (eventName, sel, val2)
+function Nx.Opts:OnListEvent(eventName, sel, val2)
 
 	local page = Nx.OptsData[self.PageSel]
 	local item = page[sel]
@@ -4935,29 +4967,29 @@ function Nx.Opts:OnListEvent (eventName, sel, val2)
 
 		if item then
 
-			if type (item) == "table" then
+			if type(item) == "table" then
 				if item.F then
-					local var = self:GetVar (item.V)
+					local var = self:GetVar(item.V)
 					Nx.Opts[item.F](self, item, var)
 				end
 
 				if item.V then
-					self:EditItem (item)
+					self:EditItem(item)
 				end
 			end
 		end
 
 	elseif eventName == "button" then
 
---		Nx.prt ("but %s", val2 and "T" or "F")
+		--		Nx.prt ("but %s", val2 and "T" or "F")
 
 		if item then
-			if type (item) == "table" then
+			if type(item) == "table" then
 				if item.V then
-					self:SetVar (item.V, val2)
+					self:SetVar(item.V, val2)
 				end
 				if item.VF then
-					local var = self:GetVar (item.V)
+					local var = self:GetVar(item.V)
 					Nx.Opts[item.VF](self, item, var)
 				end
 			end
@@ -4966,7 +4998,7 @@ function Nx.Opts:OnListEvent (eventName, sel, val2)
 	elseif eventName == "color" then
 
 		if item then
-			if type (item) == "table" then
+			if type(item) == "table" then
 				if item.VF then
 					Nx.Opts[item.VF](self, item)
 				end
@@ -4993,76 +5025,76 @@ function Nx.Opts:Update()
 
 	local page = Nx.OptsData[self.PageSel]
 
-	for k, item in ipairs (page) do
+	for k, item in ipairs(page) do
 
-		list:ItemAdd (k)
+		list:ItemAdd(k)
 
-		if type (item) == "table" then
+		if type(item) == "table" then
 
 			if item.N then
 
 				local col = "|cff9f9f9f"
 
-				if item.F then				-- Function?
+				if item.F then -- Function?
 					col = "|cff8fdf8f"
 				elseif item.V then
 					col = "|cffdfdfdf"
 				end
 
-				local istr = format ("%s%s", col, item.N)
+				local istr = format("%s%s", col, item.N)
 
 				if item.V then
 
-					local typ, pressed, tx = self:ParseVar (item.V)
+					local typ, pressed, tx = self:ParseVar(item.V)
 					if typ == "B" then
 
 						if pressed ~= nil then
 							local tip
-							list:ItemSetButton ("Opts", pressed, tx, tip)
+							list:ItemSetButton("Opts", pressed, tx, tip)
 						end
 
 					elseif typ == "C" then
 
-						list:ItemSetColorButton (opts, item.V, true)
+						list:ItemSetColorButton(opts, item.V, true)
 
 					elseif typ == "RGB" then
 
-						list:ItemSetColorButton (opts, item.V, false)
+						list:ItemSetColorButton(opts, item.V, false)
 
-					elseif typ == "CH" then		-- Choice
+					elseif typ == "CH" then -- Choice
 
-						local i = self:GetVar (item.V)
-						istr = format ("%s  |cffffff80%s", istr, i)
+						local i = self:GetVar(item.V)
+						istr = format("%s  |cffffff80%s", istr, i)
 
 					elseif typ == "F" then
 
-						local i = self:GetVar (item.V)
-						istr = format ("%s  |cffffff80%s", istr, i)
+						local i = self:GetVar(item.V)
+						istr = format("%s  |cffffff80%s", istr, i)
 
 					elseif typ == "I" then
 
-						local i = self:GetVar (item.V)
-						istr = format ("%s  |cffffff80%s", istr, i)
+						local i = self:GetVar(item.V)
+						istr = format("%s  |cffffff80%s", istr, i)
 
 					elseif typ == "S" then
 
-						local s = self:GetVar (item.V)
-						istr = format ("%s  |cffffff80%s", istr, s)
+						local s = self:GetVar(item.V)
+						istr = format("%s  |cffffff80%s", istr, s)
 
 					elseif typ == "Frm" then
 
---						list:ItemSetFrame ("Color")
+						--						list:ItemSetFrame ("Color")
 
 					end
 				end
 
-				list:ItemSet (2, istr)
+				list:ItemSet(2, istr)
 			end
 
-		elseif type (item) == "string" then
+		elseif type(item) == "string" then
 
 			local col = "|cff9f9f9f"
-			list:ItemSet (2, format ("%s%s", col, item))
+			list:ItemSet(2, format("%s%s", col, item))
 		end
 	end
 
@@ -5089,30 +5121,30 @@ function Nx.Opts:UpdateCom()
 		mask = mask + 4
 	end
 
-	Nx.Com:SetSendPalsMask (mask)
+	Nx.Com:SetSendPalsMask(mask)
 end
 
 --------
 
-function Nx.Opts:EditItem (item)
+function Nx.Opts:EditItem(item)
 
-	local var = self:GetVar (item.V)
-	local typ, r1 = self:ParseVar (item.V)
+	local var = self:GetVar(item.V)
+	local typ, r1 = self:ParseVar(item.V)
 
 	if typ == "CH" then
 
 		self.CurItem = item
 
-		local data = self:CalcChoices (r1, "Get")
+		local data = self:CalcChoices(r1, "Get")
 		if not data then
-			Nx.prt ("EditItem error (%s)", r1)
+			Nx.prt("EditItem error (%s)", r1)
 		end
-		Nx.DropDown:Start (self, self.EditCHAccept)
-		for k, name in ipairs (data) do
-			Nx.DropDown:Add (name, name == var)
+		Nx.DropDown:Start(self, self.EditCHAccept)
+		for k, name in ipairs(data) do
+			Nx.DropDown:Add(name, name == var)
 		end
-		Nx.DropDown:Show (self.List.Frm)
---[[
+		Nx.DropDown:Show(self.List.Frm)
+		--[[
 		local s = self:CalcChoices (r1, "Inc", var)
 		self:SetVar (item.V, s)
 		self:Update()
@@ -5123,72 +5155,72 @@ function Nx.Opts:EditItem (item)
 		end
 --]]
 	elseif typ == "F" then
-		Nx:ShowEditBox (item.N, var, item, self.EditFAccept)
+		Nx:ShowEditBox(item.N, var, item, self.EditFAccept)
 
 	elseif typ == "I" then
-		Nx:ShowEditBox (item.N, var, item, self.EditIAccept)
+		Nx:ShowEditBox(item.N, var, item, self.EditIAccept)
 
 	elseif typ == "S" then
-		Nx:ShowEditBox (item.N, var, item, self.EditSAccept)
+		Nx:ShowEditBox(item.N, var, item, self.EditSAccept)
 
 	end
 end
 
-function Nx.Opts:EditCHAccept (name)
+function Nx.Opts:EditCHAccept(name)
 
 	local item = self.CurItem
 
-	self:SetVar (item.V, name)
+	self:SetVar(item.V, name)
 	self:Update()
 
 	if item.VF then
-		local var = self:GetVar (item.V)
+		local var = self:GetVar(item.V)
 		self[item.VF](self, item, var)
 	end
 end
 
-function Nx.Opts.EditFAccept (str, item)
+function Nx.Opts.EditFAccept(str, item)
 
 	local self = Nx.Opts
 
-	local i = tonumber (str)
+	local i = tonumber(str)
 	if i then
-		self:SetVar (item.V, i)
+		self:SetVar(item.V, i)
 		self:Update()
 
 		if item.VF then
-			local var = self:GetVar (item.V)
+			local var = self:GetVar(item.V)
 			self[item.VF](self, item, var)
 		end
 	end
 end
 
-function Nx.Opts.EditIAccept (str, item)
+function Nx.Opts.EditIAccept(str, item)
 
 	local self = Nx.Opts
 
-	local i = tonumber (str)
+	local i = tonumber(str)
 	if i then
-		self:SetVar (item.V, floor (i))
+		self:SetVar(item.V, floor(i))
 		self:Update()
 
 		if item.VF then
-			local var = self:GetVar (item.V)
+			local var = self:GetVar(item.V)
 			self[item.VF](self, item, var)
 		end
 	end
 end
 
-function Nx.Opts.EditSAccept (str, item)
+function Nx.Opts.EditSAccept(str, item)
 
 	local self = Nx.Opts
 
 	if str then
-		self:SetVar (item.V, str)
+		self:SetVar(item.V, str)
 		self:Update()
 
 		if item.VF then
-			local var = self:GetVar (item.V)
+			local var = self:GetVar(item.V)
 			self[item.VF](self, item, var)
 		end
 	end
@@ -5197,28 +5229,28 @@ end
 --------
 -- Calc
 
-function Nx.Opts:CalcChoices (name, mode, val)
+function Nx.Opts:CalcChoices(name, mode, val)
 
 	if name == "FontFace" then
 
 		if mode == "Inc" then
-			local i = Nx.Font:GetIndex (val) + 1
-			return Nx.Font:GetName (i) or Nx.Font:GetName (1)
+			local i = Nx.Font:GetIndex(val) + 1
+			return Nx.Font:GetName(i) or Nx.Font:GetName(1)
 
 		elseif mode == "Get" then
 
 			data = {}
 
 			for n = 1, 999 do
-				local name = Nx.Font:GetName (n)
+				local name = Nx.Font:GetName(n)
 				if not name then
 					break
 				end
 
-				tinsert (data, name)
+				tinsert(data, name)
 			end
 
-			sort (data)
+			sort(data)
 
 			return data
 		end
@@ -5260,13 +5292,13 @@ end
 --------
 -- Parse var
 
-function Nx.Opts:ParseVar (varName)
+function Nx.Opts:ParseVar(varName)
 
 	local data = Nx.OptsVars[varName]
-	local scope, typ, val, a1 = Nx.Split ("~", data)
+	local scope, typ, val, a1 = Nx.Split("~", data)
 	local opts = scope == "-" and self.COpts or self.Opts
 
---	Nx.prtVar ("Parse " .. varName, opts[varName])
+	--	Nx.prtVar ("Parse " .. varName, opts[varName])
 
 	local pressed
 	local tx
@@ -5289,8 +5321,8 @@ function Nx.Opts:ParseVar (varName)
 
 	elseif typ == "W" then
 
-		local winName, atName = Nx.Split ("^", val)
-		local typ, val = Nx.Window:GetAttribute (winName, atName)
+		local winName, atName = Nx.Split("^", val)
+		local typ, val = Nx.Window:GetAttribute(winName, atName)
 
 		if typ == "B" then
 			if val then
@@ -5308,12 +5340,12 @@ end
 --------
 -- Get
 
-function Nx.Opts:GetVar (varName)
+function Nx.Opts:GetVar(varName)
 
 	local data = Nx.OptsVars[varName]
 	if data then
 
-		local scope, typ, val = Nx.Split ("~", data)
+		local scope, typ, val = Nx.Split("~", data)
 		local opts = scope == "-" and self.COpts or self.Opts
 
 		if typ == "B" then
@@ -5332,12 +5364,12 @@ end
 --------
 -- Set
 
-function Nx.Opts:SetVar (varName, val)
+function Nx.Opts:SetVar(varName, val)
 
---	Nx.prtVar ("Set " .. varName, val)
+	--	Nx.prtVar ("Set " .. varName, val)
 
 	local data = Nx.OptsVars[varName]
-	local scope, typ, vdef, vmin, vmax = Nx.Split ("~", data)
+	local scope, typ, vdef, vmin, vmax = Nx.Split("~", data)
 	local opts = scope == "-" and self.COpts or self.Opts
 
 	if typ == "B" then
@@ -5348,25 +5380,25 @@ function Nx.Opts:SetVar (varName, val)
 
 	elseif typ == "F" or typ == "I" then
 
-		vmin = tonumber (vmin)
+		vmin = tonumber(vmin)
 		if vmin then
-			val = max (val, vmin)
+			val = max(val, vmin)
 		end
 
-		vmax = tonumber (vmax)
+		vmax = tonumber(vmax)
 		if vmax then
-			val = min (val, vmax)
+			val = min(val, vmax)
 		end
 
 		opts[varName] = val
 
 	elseif typ == "S" then
-		opts[varName] = gsub (val, "~", "?")
+		opts[varName] = gsub(val, "~", "?")
 
 	elseif typ == "W" then
 
-		local winName, atName = Nx.Split ("^", vdef)
-		Nx.Window:SetAttribute (winName, atName, val)
+		local winName, atName = Nx.Split("^", vdef)
+		Nx.Window:SetAttribute(winName, atName, val)
 
 	else
 		return
